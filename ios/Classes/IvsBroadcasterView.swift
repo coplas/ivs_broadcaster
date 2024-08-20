@@ -100,7 +100,7 @@ class IvsBroadcasterView: NSObject , FlutterPlatformView , FlutterStreamHandler 
         switch(call.method){
         case "startPreview":
             let args = call.arguments as? [String: Any]
-            let url = args?["imgset"] as? String
+            let url = args?["url"] as? String
             let key = args?["streamKey"] as? String
             let quality = args?["quality"] as? String
             setupSession(url!, key!,quality!)

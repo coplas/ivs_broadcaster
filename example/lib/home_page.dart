@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     // await Future.delayed(Durations.extralong4);
 
     await ivsBroadcaster!.startPreview(
-      imgset: url,
+      url: url,
       streamKey: key,
       quality: IvsQuality.q360,
     );
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             // Start Broadcast
             ElevatedButton(
               onPressed: () async {
-                await ivsBroadcaster?.startBroadcast();
+                await ivsBroadcaster?.startBroadcast(url: url, streamKey: key);
               },
               child: const Text('Start Broadcast'),
             ),
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
             ),
             ElevatedButton(
               onPressed: () async {
-                await ivsBroadcaster!.startPreview(imgset: url, streamKey: key);
+                await ivsBroadcaster!.startPreview(url: url, streamKey: key);
               },
               child: const Text('Start preview'),
             ),

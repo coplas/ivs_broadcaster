@@ -72,18 +72,24 @@ class IvsBroadcaster {
     return await broadcater.requestPermissions();
   }
 
-  Future<void> startBroadcast() {
-    return broadcater.startBroadcast();
+  Future<void> startBroadcast({
+    required String url,
+    required String streamKey,
+    IvsQuality quality = IvsQuality.q720,
+    CameraType cameraType = CameraType.BACK,
+  }) async {
+    return await broadcater.startBroadcast(
+        url: url, streamKey: streamKey, cameraType: cameraType);
   }
 
   Future<void> startPreview({
-    required String imgset,
+    required String url,
     required String streamKey,
     IvsQuality quality = IvsQuality.q720,
     CameraType cameraType = CameraType.BACK,
   }) async {
     return await broadcater.startPreview(
-      imgset: imgset,
+      url: url,
       streamKey: streamKey,
       cameraType: cameraType,
       quality: quality,

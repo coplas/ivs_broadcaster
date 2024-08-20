@@ -15,7 +15,7 @@ To use this package you need to have an AWS account and an IVS channel.
 ## Android Setup
 
 ```dart
-String imgset = 'rtmp://<your channel url>';
+String url = 'rtmp://<your channel url>';
 String streamKy =  '<your stream key>';
 
 //Add the following permissions to your AndroidManifest.xml file
@@ -62,7 +62,7 @@ child:  BroadcaterPreview(),
   Future<bool> requestPermissions();
 
   Future<void> startPreview({
-    required String imgset,
+    required String url,
     required String streamKey,
     CameraType cameraType = CameraType.BACK,
     void Function(dynamic)? onData,

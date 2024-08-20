@@ -45,17 +45,43 @@ class MethodChannelIvsBroadcaster extends IvsBroadcasterPlatform {
   }
 
   @override
-  Future<void> startBroadcast() async {
+  Future<void> startBroadcast({
+    required String url,
+    required String streamKey,
+    CameraType cameraType = CameraType.BACK
+  }) async {
     try {
       await methodChannel.invokeMethod("startBroadcast");
     } catch (e) {
+      try {
+        final permissionStatus = await requestPermissions();
+        if (!permissionStatus) {
+          throw Exception(
+            "Please Grant Camera and Microphone Permsission [Start Broadcast]",
+          );
+        }
+        if (url.isEmpty || streamKey.isEmpty) {
+          throw Exception('url or streamKey is empty [Start Broadcast]');
+        }
+        await methodChannel.invokeMethod<void>('startBroadcast', <String, dynamic>{
+          'url': url,
+          'streamKey': streamKey,
+          'cameraType': cameraType.index.toString()
+        });
+        eventStream?.cancel();
+//        eventStream = eventChannel
+//            .receiveBroadcastStream()
+//            .listen(onData, onError: onError);
+      } catch (e) {
+        throw Exception("$e [Start Broadcast]");
+      }
       throw throw Exception("$e [Start Broadcast]");
     }
   }
 
   @override
   Future<void> startPreview({
-    required String imgset,
+    required String url,
     required String streamKey,
     IvsQuality quality = IvsQuality.q720,
     CameraType cameraType = CameraType.BACK,
@@ -69,11 +95,11 @@ class MethodChannelIvsBroadcaster extends IvsBroadcasterPlatform {
           "Please Grant Camera and Microphone Permsission [Start Preview]",
         );
       }
-      if (imgset.isEmpty || streamKey.isEmpty) {
-        throw Exception('imgset or streamKey is empty [Start Preview]');
+      if (url.isEmpty || streamKey.isEmpty) {
+        throw Exception('url or streamKey is empty [Start Preview]');
       }
       await methodChannel.invokeMethod<void>('startPreview', <String, dynamic>{
-        'imgset': imgset,
+        'url': url,
         'streamKey': streamKey,
         'cameraType': cameraType.index.toString(),
         "quality": quality.description

@@ -55,7 +55,7 @@ public class StreamView implements PlatformView, MethodCallHandler, EventChannel
         switch (methodCall.method) {
             case "startBroadcast":
                 startBroadcast(
-                        methodCall.argument("imgset"),
+                        methodCall.argument("url"),
                         methodCall.argument("streamKey"),
                         Objects.requireNonNull(methodCall.argument("cameraType")));
                 break;
