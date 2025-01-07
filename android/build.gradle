@@ -1,6 +1,8 @@
-group 'com.example.ivs_broadcaster'
-version '1.0'
+// Define the group and version for your project
+group = 'com.example.ivs_broadcaster'
+version = '1.0'
 
+// Configure buildscript repositories and dependencies
 buildscript {
     repositories {
         google()
@@ -8,10 +10,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        // Update to the latest stable Android Gradle Plugin (AGP) version
+        classpath 'com.android.tools.build:gradle:8.1.1'
     }
 }
 
+// Ensure all projects use the necessary repositories
 rootProject.allprojects {
     repositories {
         google()
@@ -19,14 +23,19 @@ rootProject.allprojects {
     }
 }
 
+// Apply the Android library plugin
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 31
+    // Specify the namespace for the module
+    namespace 'com.example.ivs_broadcaster'
+
+    // Update to the latest compile SDK version
+    compileSdkVersion 33
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     defaultConfig {
@@ -34,8 +43,11 @@ android {
     }
 
     dependencies {
+        // Unit testing dependencies
         testImplementation 'junit:junit:4.13.2'
         testImplementation 'org.mockito:mockito-core:5.0.0'
+
+        // Implementation dependencies
         implementation 'com.amazonaws:ivs-broadcast:1.10.0'
         implementation 'androidx.appcompat:appcompat:1.6.1'
         implementation 'com.google.android.material:material:1.9.0'
@@ -44,9 +56,9 @@ android {
     testOptions {
         unitTests.all {
             testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen { false }
+                showStandardStreams = true
             }
         }
     }
